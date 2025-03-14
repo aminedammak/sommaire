@@ -2,7 +2,7 @@ import { FileText } from 'lucide-react';
 import { Button } from '../ui/button';
 import NavLink from './nav-link';
 export default function Header() {
-  const isLoggedIn = true;
+  const isLoggedIn = false;
   return (
     <nav className="container flex items-center justify-between py-4 px-2 lg:px-8 mx-auto">
       <div className="flex flex-1">
