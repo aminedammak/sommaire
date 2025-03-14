@@ -5,7 +5,7 @@ import { Sparkles } from 'lucide-react';
 
 function HeroSection() {
   return (
-    <section>
+    <section className="relative mx-auto flex flex-col z-0 items-center justify-center py-16 sm:py-20 lg:pb-28 transition-all animate-in lg:px-12 max-w-7xl">
       <div>
         <div className="flex">
           <div className="relative p-[1px] overflow-hidden rounded-full bg-linear-to-r from-rose-200 via-rose-500 to-rose-800 animate-gradient-x group">
@@ -18,8 +18,12 @@ function HeroSection() {
             </Badge>
           </div>
         </div>
-        <h1>Transform PDFs into concise summaries</h1>
-        <h2>Get a beautiful summary reel of the document in seconds.</h2>
+        <h1 className="font-bold py-6 text-center">
+          Transform PDFs into concise summaries
+        </h1>
+        <h2 className="text-lg sm:text-xl lg:text-2xl text-center px-4 lg:px-0 lg:max-w-4xl text-gray-600">
+          Get a beautiful summary reel of the document in seconds.
+        </h2>
         <Button>Try Sommaire</Button>
       </div>
     </section>
