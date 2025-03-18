@@ -1,7 +1,16 @@
 import { cn } from '@/lib/utils';
+import { CheckIcon } from 'lucide-react';
 import Link from 'next/link';
 
-const plans = [
+type Plan = {
+  id: string;
+  name: string;
+  price: number;
+  description: string;
+  paymentLink: string;
+  items: string[];
+};
+const plans: Plan[] = [
   {
     id: 'basic',
     name: 'Basic',
@@ -36,7 +45,6 @@ type PriceType = {
   description: string;
   items: string[];
   paymentLink: string;
-  priceId: string;
 };
 
 const PricingCard = ({
@@ -70,11 +78,24 @@ const PricingCard = ({
         </div>
         <div className="space-y-2.5 leading-relaxed text-base">
           {items.map((item, idx) => (
-            <li>{item}</li>
+            <li className="flex items-center gap-2">
+              <CheckIcon size={18} />
+              <span>{item}</span>
+            </li>
           ))}
         </div>
-        <div>
-          <Link href={paymentLink}>Buy Now</Link>
+        <div className="space-y-2 flex justify-center w-full">
+          <Link
+            href={paymentLink}
+            className={cn(
+              'w-full rounded-full flex items-center justify-center gap-2 bg-linear-to-r from-rose-800 to-rose-500 hover:bg-linear-to-l text-white border-2 py-2',
+              id === 'pro'
+                ? 'border-rose-900'
+                : 'from-rose-400 to-rose-500 border-rose-100'
+            )}
+          >
+            Buy Now
+          </Link>
         </div>
       </div>
     </div>
@@ -89,7 +110,7 @@ export default function PricingSection() {
           <h2>Pricing</h2>
         </div>
         <div className="relative flex justify-center flex-col lg:flex-row items-center lg:items-stretch gap-8">
-          {plans.map((plan) => (
+          {plans.map((plan: Plan) => (
             <PricingCard key={plan.id} {...plan} />
           ))}
         </div>
