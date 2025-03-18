@@ -4,7 +4,7 @@ import React from 'react';
 export default function HowItWorksSection() {
   return (
     <div className="relative overflow-hidden bg-gray-50">
-      <div className="py-12 lg:py-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="py-12 lg:py-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8  lg:pt-12">
         <div className="text-center mb-16">
           <h2
             className="font-bold text-xl uppercase mb-4 text-rose-500"
