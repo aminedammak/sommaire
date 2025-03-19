@@ -1,5 +1,14 @@
-import React from 'react';
+'use client';
+
+import UploadFormInput from '@/components/upload/upload-form-input';
 
 export default function UploadForm() {
-  return <div>Upload form</div>;
+  const handleSubmit = () => {
+    console.log('Submitted');
+  };
+  return (
+    <div>
+      <UploadFormInput onSubmit={handleSubmit} />
+    </div>
+  );
 }
