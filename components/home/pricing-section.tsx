@@ -78,7 +78,7 @@ const PricingCard = ({
         </div>
         <div className="space-y-2.5 leading-relaxed text-base">
           {items.map((item, idx) => (
-            <li className="flex items-center gap-2">
+            <li className="flex items-center gap-2" key={idx}>
               <CheckIcon size={18} />
               <span>{item}</span>
             </li>
