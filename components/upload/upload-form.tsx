@@ -1,8 +1,9 @@
 'use client';
 
 import UploadFormInput from '@/components/upload/upload-form-input';
+import { useUploadThing } from '@/utils/uploadthing';
 import { z } from 'zod';
-
+import { toast } from 'sonner';
 const schema = z.object({
   file: z
     .instanceof(File, { message: 'Invalid file' })
@@ -15,7 +16,22 @@ const schema = z.object({
 });
 
 export default function UploadForm() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const { startUpload, routeConfig } = useUploadThing('pdfUploader', {
+    onClientUploadComplete: () => {
+      console.log('uploaded successfully!');
+    },
+    onUploadError: (err) => {
+      console.error('error occurred while uploading', err);
+      toast('Error occured while uploading', {
+        description: err.message,
+      });
+    },
+    onUploadBegin: ({ file }) => {
+      console.log('upload has begun for', file);
+    },
+  });
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('Submitted');
 
@@ -27,14 +43,29 @@ export default function UploadForm() {
     console.log(validatedFields);
 
     if (!validatedFields.success) {
-      console.log(
-        validatedFields.error.flatten().fieldErrors.file?.[0] ?? 'Invalid file'
-      );
+      toast('Something went wrong', {
+        description:
+          validatedFields.error.flatten().fieldErrors.file?.[0] ??
+          'Invalid file',
+      });
       return;
     }
 
-    //schema with zod
     //upload the file to uploadthing
+    toast('📄 Uploading PDF', {
+      description: 'We are uploading PDF!',
+    });
+
+    const resp = await startUpload([file]);
+    if (!resp) {
+      toast.error('Something went wrong', {
+        description: 'please use different type',
+      });
+      return;
+    }
+    toast.info('📄 Procession PDF', {
+      description: 'Hang tight! our AI is processing your document ⚡️',
+    });
     //parse the pdf using AI
     //save the summary to the database
     //redirect to the [id] summary page
